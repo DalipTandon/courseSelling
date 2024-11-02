@@ -1,9 +1,9 @@
 const express=require("express");
 const app=express();
+const mongoose=require("mongoose");
+const connectDb=require("./config.js/db")
 
-
-
-
+app.use(express.json());
 const UserRouter=require("./routes/users");
 const adminRouter=require("./routes/admin");
 const courseRouter=require("./routes/course");
@@ -13,7 +13,17 @@ app.use("/admin",adminRouter);
 app.use("/course",courseRouter);
 
 
-app.listen(3000,()=>{
-    console.log("server started at port 3000");
+
+
+connectDb().then(()=>{
+    console.log("DB is connected succesfully");
+    
+    app.listen(3000,()=>{
+        console.log("server started at port 3000");
+        
+    })
+})
+.catch((err)=>{
+    console.log("Db is not connected successfully");
     
 })
