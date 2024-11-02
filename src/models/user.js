@@ -5,15 +5,11 @@ const mongoose=require("mongoose");
 const userSchema=new mongoose.Schema({
     firstName:{
         type:String,
-        min:3,
-        max:50,
         unqiue:true,
         required:true
     },
     lastName:{
         type:String,
-        min:3,
-        max:50,
         unqiue:true,
         required:true
     },
