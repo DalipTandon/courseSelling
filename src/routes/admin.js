@@ -73,8 +73,5 @@ adminRouter.post("/login",async(req,res)=>{
     }
 })
 
-adminRouter.post("/create",async(req,res)=>{
-
-})
 
 module.exports=adminRouter;
