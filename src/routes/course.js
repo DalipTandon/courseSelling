@@ -2,7 +2,11 @@ const express = require("express");
 const courseRouter = express.Router();
 const { z } = require("zod");
 const Course=require("../models/courses")
-courseRouter.post("/create",async (req, res) => {
+const{userAuthentication,adminAuthentication}=require("../middlewares/authentication")
+
+
+
+courseRouter.post("/create",adminAuthentication,async (req, res) => {
   try {
     const { courseName, coursePrice, description, courseUrl } = req.body;
     const course=new Course({
@@ -18,8 +22,13 @@ courseRouter.post("/create",async (req, res) => {
   }
 });
 
-courseRouter.get("/feed", (req, res) => {
-  res.send("course logged out");
+courseRouter.get("/feed",userAuthentication, (req, res) => {
+
+  try{
+    res.send("done")
+  }catch(error){
+    res.send("plz authentixcate");
+  }
 });
 
 module.exports = courseRouter;

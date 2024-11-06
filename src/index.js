@@ -2,7 +2,9 @@ const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
 const connectDb=require("./config.js/db")
+const cookieParser = require('cookie-parser')
 
+app.use(cookieParser());
 app.use(express.json());
 const UserRouter=require("./routes/users");
 const adminRouter=require("./routes/admin");
