@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 const Course=require("./courses");
 
 
-const userSchema=new mongoose.Schema({
+const adminSchema=new mongoose.Schema({
     firstName:{
         type:String,
         unique:true,
@@ -23,10 +23,10 @@ const userSchema=new mongoose.Schema({
         required:true,
         unique:true
     },
-    pusrchasedCourse:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Course"
-    }
+    createdCourses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course"
+    }]
 },{timestamps:true});
 
-module.exports=mongoose.model("User",userSchema);
+module.exports=mongoose.model("Admin",adminSchema);
