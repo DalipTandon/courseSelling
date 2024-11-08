@@ -4,6 +4,7 @@ const User =require("../models/user")
 const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
+const {userAuthentication}=require("../middlewares/authentication")
 require('dotenv').config()
 
 UserRouter.post("/signup",async(req,res)=>{
@@ -67,6 +68,14 @@ UserRouter.post("/login",async(req,res)=>{
         }else{
             throw new error("Invalid credentials");
         }
+
+    }catch(error){
+        res.send(error.message);
+    }
+})
+UserRouter.get("/mycourse",userAuthentication,(req,res)=>{
+    try{
+
 
     }catch(error){
         res.send(error.message);
