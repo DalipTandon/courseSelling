@@ -5,6 +5,7 @@ const {z}=require("zod");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const {userAuthentication}=require("../middlewares/authentication")
+const Purchase=require("../models/purchase")
 require('dotenv').config()
 
 UserRouter.post("/signup",async(req,res)=>{
@@ -73,9 +74,19 @@ UserRouter.post("/login",async(req,res)=>{
         res.send(error.message);
     }
 })
-UserRouter.get("/mycourse",userAuthentication,(req,res)=>{
+UserRouter.get("/mycourse",userAuthentication,async(req,res)=>{
     try{
-
+        const user=req.user;
+        const myCourse=await Purchase.find({
+            userId:user._id
+        }) .populate("courseId", "courseName")
+        if(!myCourse|| (myCourse.length===0)){
+            throw new Error("No courses");
+        }
+        res.send({
+            message:"Your Purchased courses",
+            data:myCourse
+        })
 
     }catch(error){
         res.send(error.message);

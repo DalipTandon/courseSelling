@@ -40,9 +40,9 @@ courseRouter.post("/buy/:userId/:courseId",async(req,res)=>{
     const course = await Course.findOne({ courseName: courseName });
     console.log(course);
     
-    if(!course){
-      return res.status(400).send("No such course with this name is available");
-    }
+    // if(!course){
+    //   return res.status(400).send("No such course with this name is available");
+    // }
     if(courseId!==course._id.toString()){
       return res.status(400).send("No such course with this id available");
     }
