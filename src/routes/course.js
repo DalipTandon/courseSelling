@@ -22,12 +22,13 @@ courseRouter.post("/create",adminAuthentication,async (req, res) => {
   }
 });
 
-courseRouter.get("/feed",userAuthentication, (req, res) => {
+courseRouter.get("/feed", async(req, res) => {
 
   try{
-    res.send("done")
+     const courseData=await Course.find();
+    res.send({message:"All Courses",data:courseData});
   }catch(error){
-    res.send("plz authentixcate");
+    res.send(error.message);
   }
 });
 
