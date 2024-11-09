@@ -31,7 +31,7 @@ courseRouter.get("/feed", async(req, res) => {
     res.send(error.message);
   }
 });
-courseRouter.post("/buy/:userId/:courseId",async(req,res)=>{
+courseRouter.post("/buy/:userId/:courseId",userAuthentication,async(req,res)=>{
   try{
     const {courseName}=req.body;
     const{userId,courseId}=req.params;
