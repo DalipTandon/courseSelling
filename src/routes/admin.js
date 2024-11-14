@@ -73,5 +73,11 @@ adminRouter.post("/login",async(req,res)=>{
     }
 })
 
-
+adminRouter.post("/logout",(req,res)=>{
+    res.cookie("token",null,{
+        expires:new Date(Date.now()),
+    })
+    res.send("logout successful");
+})
+ 
 module.exports=adminRouter;

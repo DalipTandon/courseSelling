@@ -96,6 +96,12 @@ UserRouter.get("/mycourse",userAuthentication,async(req,res)=>{
     }
 })
 
+UserRouter.post("/logout",(req,res)=>{
+    res.cookie("token",null,{
+        expires:new Date(Date.now()),
+    })
+    res.send("logout successful");
+})
  
 
 
