@@ -20,7 +20,8 @@ const courseSchema=new mongoose.Schema({
     adminId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Admin",
-        
+    },courseRating:{
+        type:Number
     }
 })
 

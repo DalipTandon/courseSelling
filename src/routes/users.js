@@ -28,9 +28,12 @@ UserRouter.post("/signup",async(req,res)=>{
         const user=new User({
             firstName,lastName,emailId,password:hashPassword
         })
-      await  user.save();
-    
-        res.send({message:"signup done",data:user});
+     const savedUser= await  user.save();
+     var token=await jwt.sign({_id:user._id},process.env.USER_SECRET,{expiresIn:"7d"});
+     res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
+        res.send({message:"signup done",data:savedUser});
     }catch(error){
         res.send(error.message);
     }
@@ -79,7 +82,7 @@ UserRouter.get("/mycourse",userAuthentication,async(req,res)=>{
         const user=req.user;
         const myCourse=await Purchase.find({
             userId:user._id
-        }) .populate("courseId", "courseName")
+        }) .populate("courseId", "courseName coursePrice  description courseUrl courseRating ")
         if(!myCourse|| (myCourse.length===0)){
             throw new Error("No courses");
         }
